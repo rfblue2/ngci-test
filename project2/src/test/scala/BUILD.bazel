@@ -1,0 +1,10 @@
+load("@io_bazel_rules_scala//scala:scala.bzl", "scala_test")
+
+scala_test(
+    name = "sample2-test",
+    srcs = glob(["**/*.scala"]),
+    visibility = ["//visibility:public"],
+    deps = [
+        "//project2/src/main/scala:sample2"
+    ]
+)

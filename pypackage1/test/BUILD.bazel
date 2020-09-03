@@ -1,0 +1,9 @@
+load("@rules_python//python:defs.bzl", "py_binary", "py_test")
+
+py_test(
+  name = "test_athing",
+  deps = [
+      "//pypackage1/main:doathing",
+      ],
+  srcs = ["test_athing.py"],
+)
