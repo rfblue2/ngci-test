@@ -18,3 +18,7 @@ steps:
   depends_on: [clone]
   commands:
   - bazel test //pypackage1/...
+
+trigger:
+  event:
+  - push
