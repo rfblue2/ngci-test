@@ -13,3 +13,7 @@ steps:
   depends_on: [clone]
   commands:
   - bazel test //project2/...
+
+trigger:
+  event:
+    - push
