@@ -13,8 +13,3 @@ steps:
   depends_on: [clone]
   commands:
   - bazel test //project2/...
-- name: pyproject
-  image: l.gcr.io/google/bazel:3.1.0
-  depends_on: [clone]
-  commands:
-  - bazel test //pypackage1/...
