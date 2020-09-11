@@ -5,7 +5,7 @@ name: default
 
 steps:
 - name: pipeline-only
-  image: docker
+  image: docker:dind
   depends_on: [clone]
   commands:
   - docker ps
@@ -21,7 +21,7 @@ steps:
   when:
     paths:
       include:
-      - "project1/"
+      - "project1/**"
 - name: project2
   image: l.gcr.io/google/bazel:3.1.0
   depends_on: [clone]
@@ -30,7 +30,7 @@ steps:
   when:
     paths:
       include:
-      - "project2/"
+      - "project2/**"
 
 trigger:
   event:
