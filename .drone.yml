@@ -10,8 +10,7 @@ steps:
   commands:
   - bazel test //project1/...
   when:
-    wat:
-      asdf: "asdf"
+    paths:
       include:
       - "project1"
 - name: project2
