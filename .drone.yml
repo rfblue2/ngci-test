@@ -35,3 +35,23 @@ steps:
 trigger:
   event:
     - push
+
+---
+kind: pipeline
+type: kubernetes
+name: python
+
+steps:
+- name: pypackage1
+  image: l.gcr.io/google/bazel:3.1.0
+  depends_on: [clone]
+  commands:
+  - bazel test //pypackage1/...
+  when:
+    paths:
+      include:
+      - "pypackage1/**"
+
+trigger:
+  event:
+    - push
