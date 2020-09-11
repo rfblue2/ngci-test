@@ -9,11 +9,19 @@ steps:
   depends_on: [clone]
   commands:
   - bazel test //project1/...
+  when:
+    paths:
+      include:
+      - "project1"
 - name: project2
   image: l.gcr.io/google/bazel:3.1.0
   depends_on: [clone]
   commands:
   - bazel test //project2/...
+  when:
+    paths:
+      include:
+      - "project2"
 
 trigger:
   event:
