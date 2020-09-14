@@ -36,5 +36,6 @@ spec:
       image: "l.gcr.io/google/bazel:3.1.0"
       working_directory: "${{clone}}"
       commands:
-        - bazel test //project/...   
+        - ls
+        - bazel test //project2/...   
   stages: []
