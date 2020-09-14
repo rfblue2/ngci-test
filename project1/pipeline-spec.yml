@@ -35,6 +35,6 @@ spec:
       type: freestyle
       image: "l.gcr.io/google/bazel:3.1.0"
       working_directory: "${{clone}}"
-      command:
-        - test //project1/...   
+      commands:
+        - bazel test //project1/...   
   stages: []
