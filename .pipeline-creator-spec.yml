@@ -10,12 +10,14 @@ spec:
     - type: git
       repo: rfblue2/ngci-test
       events:
-        - push
+        - push.heads
+      pullRequestAllowForkEvents: false
+      commentRegex: /.*/gi
       branchRegex: /.*/gi
+      branchRegexInput: regex
       modifiedFilesGlob: '**/pipeline-spec.yml'
       provider: github
-      name: my-trigger
-      context: ngci-test
+      name: path-trigger
   contexts: []
   variables: []
   steps:
