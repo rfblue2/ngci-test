@@ -37,3 +37,9 @@ spec:
       commands:
         - ./create_pipelines.sh
   stages: []
+  runtimeEnvironment:
+    name: arn:aws:eks:us-east-1:408272790494:cluster/ci-pub/codefresh
+    cpu: 2000m
+    memory: 800Mi
+    dindStorage: nullGi
+    
