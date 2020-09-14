@@ -8,7 +8,7 @@ steps:
   image: docker:dind
   depends_on: [clone]
   commands:
-  - docker ps
+  - ls
   when:
     paths:
       include:
