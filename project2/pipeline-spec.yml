@@ -1,8 +1,8 @@
 version: '1.0'
 kind: pipeline
 metadata:
-  name: ngci-test/project1
-  description: "Project1"
+  name: ngci-test/project2
+  description: "Project2"
   deprecate: {}
   project: ngci-test
 spec:
@@ -12,7 +12,7 @@ spec:
       events:
         - push
       branchRegex: /.*/gi
-      modifiedFilesGlob: 'project1/**'
+      modifiedFilesGlob: 'project2/**'
       provider: github
       name: my-trigger
       context: ngci-test
@@ -30,5 +30,5 @@ spec:
       image_name: "l.gcr.io/google/bazel:3.1.0"
       working_directory: "${{clone}}"
       command:
-        - bazel test //project1/...   
+        - bazel test //project/...   
   stages: []
