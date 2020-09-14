@@ -16,7 +16,7 @@ spec:
       events:
         - push.heads
       branchRegex: /.*/gi
-      modifiedFilesGlob: '**/pipeline-spec.yml'
+      modifiedFilesGlob: {'**/pipeline-spec.yml', 'create_pipelines.sh'}
       disabled: false
       options:
         noCache: false
