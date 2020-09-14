@@ -1,0 +1,34 @@
+version: '1.0'
+kind: pipeline
+metadata:
+  name: dynamic-pipelines/my-python-app-pipeline
+  description: "Project1"
+  deprecate: {}
+  project: dynamic-pipelines
+spec:
+  triggers:
+    - type: git
+      repo: rfblue2/ngci-test
+      events:
+        - push
+      branchRegex: /.*/gi
+      modifiedFilesGlob: 'project1/**'
+      provider: github
+      name: my-trigger
+      context: github-1
+  contexts: []
+  steps:
+    clone:
+      title: Clone
+      type: git-clone
+      repo: "rfblue2/ngci-test"
+      revision: '${{CF_BRANCH}}'
+      git: github-1    
+    test:
+      title: Test
+      type: freestyle
+      image_name: "l.gcr.io/google/bazel:3.1.0"
+      working_directory: "${{clone}}"
+      command:
+        - bazel test //project1/...   
+  stages: []

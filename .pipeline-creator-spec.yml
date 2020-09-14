@@ -1,0 +1,33 @@
+version: '1.0'
+kind: pipeline
+metadata:
+  name: ngci-test/pipeline-creator
+  description: "Pipeline creator for pipeline-spec.yml files"
+  deprecate: {}
+  project: ngci-test
+spec:
+  triggers:
+    - type: git
+      repo: rfblue2/ngci-test
+      events:
+        - push
+      branchRegex: /.*/gi
+      modifiedFilesGlob: '**/pipeline-spec.yml'
+      provider: github
+      name: my-trigger
+      context: ngci-test
+  contexts: []
+  variables: []
+  steps:
+    main_clone:
+      title: 'Cloning main repository...'
+      type: git-clone
+      repo: '${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}'
+      revision: '${{CF_REVISION}}'
+      git: github
+    pipelineCreator:
+      title: Setting up a new pipeline programatically
+      image: codefresh/cli
+      commands:
+        - ./create_pipelines.sh
+  stages: []
