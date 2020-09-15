@@ -46,7 +46,6 @@ spec:
               - success
       commands:
         - ./create_pipelines.sh # can also do a check here to see if any specfiles changed before changing pipelines
-        - codefresh run ngci-test/project1 -b ${{CF_BRANCH}}
     project1:
       title: "project1-test"
       type: "codefresh-run"
