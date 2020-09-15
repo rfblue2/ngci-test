@@ -9,7 +9,7 @@ for f in */pipeline-spec.yml ; do
     fi 
 done
 
-changed=git diff --name-only HEAD HEAD~1
+changed=$(git diff --name-only HEAD HEAD~1)
 if [[ $changed == "project1/"** ]]; then
     PROJECT1=true
 elif [[ $changed == "project2/"** ]]; then
