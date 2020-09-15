@@ -45,8 +45,7 @@ spec:
             on:
               - success
       commands:
-        - ./create_pipelines.sh # can also do a check here to see if any specfiles changed before changing pipelines
-        - cf_export PROJECT1 PROJECT2
+        - ./create_pipelines.sh
     project1:
       title: "project1-test"
       type: "codefresh-run"
