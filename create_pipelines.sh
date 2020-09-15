@@ -18,6 +18,6 @@ elif [[ $changed == *"project2/"** ]]; then
 fi
 echo $PROJECT1
 echo $PROJECT2
-cf_export PROJECT1 PROJECT2
+cf_export PROJECT1=$PROJECT1 PROJECT2=$PROJECT2
 
 echo 'done'
