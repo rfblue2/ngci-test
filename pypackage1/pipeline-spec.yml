@@ -1,0 +1,47 @@
+version: '1.0'
+kind: pipeline
+metadata:
+  name: ngci-test/pypackage1
+  description: "Pypackage1"
+  deprecate: {}
+  project: ngci-test
+spec:
+  triggers:
+    - type: git
+      provider: github
+      name: path-trigger
+      repo: rfblue2/ngci-test
+      context: "github"
+      contexts: []
+      events:
+        - push.heads
+      branchRegex: /.*/gi
+      modifiedFilesGlob: 'pypackage1/**'
+      disabled: false
+      options:
+        noCache: false
+        noCfCache: false
+        resetVolume: false
+  contexts: []
+  steps:
+    clone:
+      title: Clone
+      type: git-clone
+      repo: "rfblue2/ngci-test"
+      revision: '${{CF_BRANCH}}'
+      git: github 
+    test:
+      title: Test
+      type: freestyle
+      image: "l.gcr.io/google/bazel:3.1.0"
+      working_directory: "${{clone}}"
+      commands:
+        - ls
+        - bazel test //pypackage1/...   
+  stages: []
+  runtimeEnvironment:
+    name: arn:aws:eks:us-east-1:408272790494:cluster/ci-pub/codefresh
+    cpu: 2000m
+    memory: 4096Mi
+    dindStorage: nullGi
+    
