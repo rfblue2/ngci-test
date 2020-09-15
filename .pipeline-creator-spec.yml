@@ -16,7 +16,6 @@ spec:
       events:
         - push.heads
       branchRegex: /.*/gi
-      modifiedFilesGlob: '{**/pipeline-spec.yml, create_pipelines.sh, .pipeline-creator-spec.yml}'
       disabled: false
       options:
         noCache: false
@@ -24,22 +23,61 @@ spec:
         resetVolume: false
   contexts: []
   variables: []
+  stages:
+    - 'pretest'
+    - 'test'
+  mode: 'parallel'
   steps:
-    main_clone:
+    clone:
       title: 'Cloning main repository...'
       type: git-clone
+      stage: 'pretest'
       repo: '${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}'
       revision: '${{CF_REVISION}}'
       git: github
-    pipelineCreator:
+    create-pipelines:
       title: Setting up a new pipeline programatically
       image: codefresh/cli
+      stage: 'pretest'
+      when:
+        steps:
+          - name: clone
+            on:
+              - success
       commands:
-        - ./create_pipelines.sh
-  stages: []
+        - ./create_pipelines.sh # can also do a check here to see if any specfiles changed
+        - codefresh run ngci-test/project1 -b ${{CF_BRANCH}}
+    project1:
+      title: "project1-test"
+      type: "codefresh-run"
+      stage: "test"
+      arguments:
+        PIPELINE_ID: ngci-test/project1
+        VARIABLE:
+          - CF_BRANCH=${{CF_BRANCH}}
+          - CF_REVISION=${{CF_REVISION}}
+      when:
+        steps:
+          - name: create-pipelines
+            on:
+              - success
+    project2:
+      title: "project2-test"
+      type: "codefresh-run"
+      stage: "test"
+      arguments:
+        PIPELINE_ID: ngci-test/project2
+        VARIABLE:
+          - CF_BRANCH=${{CF_BRANCH}}
+          - CF_REVISION=${{CF_REVISION}}
+      when:
+        steps:
+          - name: create-pipelines
+            on:
+              - success
   runtimeEnvironment:
     name: arn:aws:eks:us-east-1:408272790494:cluster/ci-pub/codefresh
     cpu: 2000m
-    memory: 800Mi
+    memory: 1024Mi
     dindStorage: nullGi
     
