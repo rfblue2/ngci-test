@@ -8,10 +8,11 @@ for f in */pipeline-spec.yml ; do
 done
 
 changed=$(git diff --name-only HEAD HEAD~1)
+echo $changed
 if [[ $changed == "project1/"** ]]; then
-    export PROJECT1=true
+    PROJECT1=true
 elif [[ $changed == "project2/"** ]]; then
-    export PROJECT2=true
+    PROJECT2=true
 fi
 echo $PROJECT1
 echo $PROJECT2
