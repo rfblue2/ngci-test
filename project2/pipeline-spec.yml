@@ -17,7 +17,7 @@ spec:
         - push.heads
       branchRegex: /.*/gi
       modifiedFilesGlob: 'project2/**'
-      disabled: false
+      disabled: true
       options:
         noCache: false
         noCfCache: false
@@ -36,7 +36,6 @@ spec:
       image: "l.gcr.io/google/bazel:3.1.0"
       working_directory: "${{clone}}"
       commands:
-        - ls
         - bazel test //project2/...   
   stages: []
   runtimeEnvironment:

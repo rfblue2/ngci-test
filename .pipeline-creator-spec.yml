@@ -45,7 +45,7 @@ spec:
             on:
               - success
       commands:
-        - ./create_pipelines.sh # can also do a check here to see if any specfiles changed
+        - ./create_pipelines.sh # can also do a check here to see if any specfiles changed before changing pipelines
         - codefresh run ngci-test/project1 -b ${{CF_BRANCH}}
     project1:
       title: "project1-test"
@@ -53,6 +53,8 @@ spec:
       stage: "test"
       arguments:
         PIPELINE_ID: ngci-test/project1
+        TRIGGER_ID: path-trigger
+        BRANCH: ${{CF_BRANCH}}
         VARIABLE:
           - CF_BRANCH=${{CF_BRANCH}}
           - CF_REVISION=${{CF_REVISION}}
@@ -67,6 +69,8 @@ spec:
       stage: "test"
       arguments:
         PIPELINE_ID: ngci-test/project2
+        TRIGGER_ID: path-trigger
+        BRANCH: ${{CF_BRANCH}}
         VARIABLE:
           - CF_BRANCH=${{CF_BRANCH}}
           - CF_REVISION=${{CF_REVISION}}
