@@ -28,7 +28,7 @@ spec:
     - 'test'
   mode: 'parallel'
   steps:
-    clone:
+    main_clone: # reserved name
       title: 'Cloning main repository...'
       type: git-clone
       stage: 'pretest'
@@ -41,7 +41,7 @@ spec:
       stage: 'pretest'
       when:
         steps:
-          - name: clone
+          - name: main_clone
             on:
               - success
       commands:
