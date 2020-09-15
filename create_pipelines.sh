@@ -9,10 +9,10 @@ done
 
 changed=$(git --no-pager diff --name-only HEAD HEAD~1)
 echo $changed
-if [[ $changed == "project1/"** ]]; then
+if [[ $changed == *"project1/"** ]]; then
     echo 'set project1'
     PROJECT1=true
-elif [[ $changed == "project2/"** ]]; then
+elif [[ $changed == *"project2/"** ]]; then
     echo 'set project2'
     PROJECT2=true
 fi
