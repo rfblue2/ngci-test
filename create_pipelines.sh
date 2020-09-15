@@ -7,7 +7,7 @@ for f in */pipeline-spec.yml ; do
     fi 
 done
 
-changed=$(git diff --name-only HEAD HEAD~1)
+changed=$(git --no-pager diff --name-only HEAD HEAD~1)
 echo $changed
 if [[ $changed == "project1/"** ]]; then
     echo 'set project1'
