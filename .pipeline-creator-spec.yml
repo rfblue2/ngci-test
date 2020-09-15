@@ -35,7 +35,7 @@ spec:
       repo: '${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}'
       revision: '${{CF_REVISION}}'
       git: github
-    create-pipelines:
+    create_pipelines:
       title: Setting up a new pipeline programatically
       image: codefresh/cli
       stage: 'pretest'
@@ -61,11 +61,8 @@ spec:
       when:
         condition:
           all:
-            whenVarIsExists: 'includes("${{PROJECT1}}) == true'
-        steps:
-          - name: create-pipelines
-            on:
-              - success
+            cloneFinish: steps.create_pipelines.result == 'success'
+            whenVarExists: 'includes("${{PROJECT1}}", "") == false'
     project2:
       title: "project2-test"
       type: "codefresh-run"
@@ -80,11 +77,8 @@ spec:
       when:
         condition:
           all:
-            whenVarExists: 'includes("${{PROJECT2}}) == true'
-        steps:
-          - name: create-pipelines
-            on:
-              - success
+            cloneFinish: steps.create_pipelines.result == 'success'
+            whenVarExists: 'includes("${{PROJECT2}}", "") == false'
   runtimeEnvironment:
     name: arn:aws:eks:us-east-1:408272790494:cluster/ci-pub/codefresh
     cpu: 2000m
