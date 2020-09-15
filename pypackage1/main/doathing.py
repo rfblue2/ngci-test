@@ -1,5 +1,6 @@
 def makeMagicString():
     magicString = "banana"
+
     return magicString
 
 if __name__ == '__main__':
