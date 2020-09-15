@@ -61,7 +61,7 @@ spec:
         condition:
           all:
             cloneFinish: steps.create_pipelines.result == 'success'
-            whenVarExists: 'includes("${{PROJECT1}}", "") == false'
+            whenVarExists: 'includes("${{PROJECT1}}", "true") == true'
     project2:
       title: "project2-test"
       type: "codefresh-run"
@@ -77,7 +77,7 @@ spec:
         condition:
           all:
             cloneFinish: steps.create_pipelines.result == 'success'
-            whenVarExists: 'includes("${{PROJECT2}}", "") == false'
+            whenVarExists: 'includes("${{PROJECT2}}", "true") == true'
   runtimeEnvironment:
     name: arn:aws:eks:us-east-1:408272790494:cluster/ci-pub/codefresh
     cpu: 2000m
