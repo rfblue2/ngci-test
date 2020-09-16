@@ -12,7 +12,8 @@ echo $changed
 if [[ $changed == *"project1/"** ]]; then
     echo 'set project1'
     PROJECT1=true
-elif [[ $changed == *"project2/"** ]]; then
+fi
+if [[ $changed == *"project2/"** ]]; then
     echo 'set project2'
     PROJECT2=true
 fi
