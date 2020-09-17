@@ -4,5 +4,6 @@
 
 bazel-*
 .cache/
+v1/
 
 *.pyc
