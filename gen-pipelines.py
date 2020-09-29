@@ -47,22 +47,6 @@ def gen_pipeline(targets):
       "project": "ngci-test",
     },
     "spec": {
-      "triggers": [{
-        "type": "git",
-        "provider": "github",
-        "name": "path-trigger",
-        "repo": "rfblue2/ngci-test",
-        "context": "github",
-        "contexts": [],
-        "events": ["push.heads"],
-        "branchRegex": "/.*/gi",
-        "disabled": False,
-        "options": {
-          "noCache": False,
-          "noCfCache": False,
-          "resetVolume": False,
-        }
-      }],
       "contexts": [],
       "variables": [],
       "mode": "parallel",

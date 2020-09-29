@@ -40,6 +40,7 @@ spec:
             on:
               - success
       commands:
+        - pip install pyyaml
         - python gen-pipelines.py
     run_pipelines:
       title: Run the pipelines
@@ -50,7 +51,8 @@ spec:
             on:
               - success
       commands:
-        - BUILD_ID=$(codefresh run --branch ${{CF_BRANCH}} --sha=${{CF_REVISION}} --yaml pipeline-gen.yaml)
+        - codefresh replace pipeline -f pipeline-gen.yaml
+        - BUILD_ID=$(codefresh run ngci-test/pre-submit --branch ${{CF_BRANCH}} --sha=${{CF_REVISION}})
         - echo 'Retrieving logs for build $BUILD_ID'
         - codefresh logs -f $BUILD_ID
         - codefresh wait $BUILD_ID
