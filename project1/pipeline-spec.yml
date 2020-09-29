@@ -37,7 +37,6 @@ spec:
       working_directory: "${{clone}}"
       commands:
         - pwd
-        - bazel test //project1/...   
   stages: []
   runtimeEnvironment:
     name: arn:aws:eks:us-east-1:408272790494:cluster/ci-pub/codefresh
