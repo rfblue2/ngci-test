@@ -41,7 +41,7 @@ spec:
   stages: []
   runtimeEnvironment:
     name: arn:aws:eks:us-east-1:408272790494:cluster/ci-pub/codefresh
-    cpu: 3500m 
-    memory: 8192Mi
+    cpu: 1000m 
+    memory: 1024Mi
     dindStorage: nullGi
     
