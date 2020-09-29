@@ -46,7 +46,7 @@ spec:
       image: codefresh/cli
       when:
         steps:
-          - name: main_clone
+          - name: gen_pipelines
             on:
               - success
       commands:
