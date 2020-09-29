@@ -3,5 +3,7 @@
 .vscode/*
 
 bazel-*
+.cache/
+v1/
 
 *.pyc

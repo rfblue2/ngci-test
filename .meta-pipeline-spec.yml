@@ -1,0 +1,64 @@
+version: '1.0'
+kind: pipeline
+metadata:
+  name: ngci-test/meta-pipeline
+  description: "Generates the main pipeline on the fly"
+  deprecate: {}
+  project: ngci-test
+spec:
+  triggers:
+    - type: git
+      provider: github
+      name: path-trigger
+      repo: rfblue2/ngci-test
+      context: "github"
+      contexts: []
+      events:
+        - push.heads
+      branchRegex: /.*/gi
+      disabled: true
+      options:
+        noCache: false
+        noCfCache: false
+        resetVolume: false
+  contexts: []
+  variables: []
+  mode: 'parallel'
+  steps:
+    main_clone: # reserved name
+      title: 'Cloning main repository...'
+      type: git-clone
+      repo: '${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}'
+      revision: '${{CF_REVISION}}'
+      git: github
+    gen_pipelines:
+      title: Setting up a new pipeline programatically
+      image: python
+      when:
+        steps:
+          - name: main_clone
+            on:
+              - success
+      commands:
+        - pip install pyyaml
+        - python gen-pipelines.py
+    run_pipelines:
+      title: Run the pipelines
+      image: codefresh/cli
+      when:
+        steps:
+          - name: gen_pipelines
+            on:
+              - success
+      commands:
+        - codefresh replace pipeline -f pipeline-gen.yaml
+        - BUILD_ID=$(codefresh run ngci-test/pre-submit --branch ${{CF_BRANCH}} --sha=${{CF_REVISION}})
+        - echo 'Retrieving logs for build $BUILD_ID'
+        - codefresh logs -f $BUILD_ID
+        - codefresh wait $BUILD_ID
+  runtimeEnvironment:
+    name: arn:aws:eks:us-east-1:408272790494:cluster/ci-pub/codefresh
+    cpu: 2000m
+    memory: 1024Mi
+    dindStorage: nullGi
+    
