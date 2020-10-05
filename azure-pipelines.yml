@@ -11,9 +11,9 @@ jobs:
   pool:
     vmImage: 'ubuntu-latest'
 
-  container: l.gcr.io/google/bazel:3.1.0
+  container: python
 
   steps:
   - script: |
-      bazel test //project1
+      echo 'hello'
     displayName: 'Run tests'
