@@ -12,7 +12,7 @@ jobs:
     vmImage: 'ubuntu-latest'
   container: python:latest
   steps:
-  - task: prerun-task
+  - task: prerun-task@1
     inputs:
       script: |
         echo "##vso[task.setvariable variable=project1;isOutput=true]true"
@@ -24,8 +24,8 @@ jobs:
   dependsOn:
     - Prerun
   variables:
-    project1: $[ dependencies.Prerun.outputs['prerun-task.project1'] ]
-    project2: $[ dependencies.Prerun.outputs['prerun-task.project2'] ]
+    project1: $[ dependencies.Prerun.outputs['prerun-task@1.project1'] ]
+    project2: $[ dependencies.Prerun.outputs['prerun-task@1.project2'] ]
   steps:
   - script: |
       echo 'project1: $(project1)'
