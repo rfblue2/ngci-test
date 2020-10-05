@@ -1,0 +1,19 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- azure
+
+jobs:
+- job: Project1
+  pool:
+    vmImage: 'ubuntu-latest'
+
+  container: python:latest
+
+  steps:
+  - script: |
+      echo 'hello'
+    displayName: 'Run tests'

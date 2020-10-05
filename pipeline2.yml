@@ -1,0 +1,44 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- azure
+
+jobs:
+- job: Prerun
+  pool:
+    vmImage: 'ubuntu-latest'
+  container: python:latest
+  steps:
+  - task: CmdLine@2
+    name: PrerunTask
+    inputs:
+      script: |
+        echo "##vso[task.setvariable variable=project1;isOutput=true]true"
+        echo "##vso[task.setvariable variable=project2;isOutput=true]false"
+- job: Project1
+  pool:
+    vmImage: 'ubuntu-latest'
+  container: python:latest
+  dependsOn:
+    - Prerun
+  variables:
+    project1: $[ dependencies.Prerun.outputs['PrerunTask.project1'] ]
+    project2: $[ dependencies.Prerun.outputs['PrerunTask.project2'] ]
+  steps:
+  - script: |
+      echo 'project1: $(project1)'
+      echo 'project2: $(project2)'
+    displayName: 'Run tests'
+# - job: Project2
+#   pool:
+#     vmImage: 'ubuntu-latest'
+# 
+#   container: python:latest
+# 
+#   steps:
+#   - script: |
+#       echo 'project2'
+#     displayName: 'Run tests'
